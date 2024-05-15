@@ -1,0 +1,11 @@
+<h1>Enter Dog Breed</h1>
+
+<%= form_with url: fetch_breed_path, method: :post do %>
+  <div>
+    <%= label_tag :breed, "Breed" %>
+    <%= text_field_tag :breed %>
+  </div>
+  <div>
+    <%= submit_tag "Submit" %>
+  </div>
+<% end %>
