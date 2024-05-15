@@ -1,15 +1,25 @@
 class BreedsController < ApplicationController
+  require 'net/http'
+
   def index
-    
   end
 
   def fetch_breed
-    if request.post?
-      @breed = params[:breed]
-      # Handle the form submission, e.g., save the breed or process it as needed
-      p "Breed submitted successfully: #{@breed}"
-      #redirect_to root_path
+    breed = params[:breed].downcase
+    url = URI("https://dog.ceo/api/breed/#{breed}/images/random")
+    response = Net::HTTP.get(url)
+    result = JSON.parse(response)
+
+    if result['status'] == 'success'
+      @breed_name = breed.capitalize
+      @image_url = result['message']
+    else
+      @error = "Breed not found"
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render partial: 'breed_result', status: :unprocessable_entity }
     end
   end
-
 end
