@@ -18,8 +18,9 @@ class BreedsController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream
-      format.html { render partial: 'breed_result', status: :unprocessable_entity }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace('breed_info', partial: 'breed_result', locals: { image_url: @image_url, breed_name: @breed_name }) }
+    #  format.turbo_stream
+    #  format.html { render partial: 'breed_result', status: :unprocessable_entity }
     end
   end
 end
