@@ -1,6 +1,10 @@
-<% if @error %>
-  <div class="alert alert-danger"><%= @error %></div>
+<% if error %>
+  <div id="breed_info">
+    <p><%= error %></p>
+  </div>
 <% else %>
-  <h3><%= breed_name %></h3>
-  <img src="<%= image_url %>" class="img-fluid" alt="Image of <%= @breed_name %>">
+  <div id="breed_info">
+    <h2><%= breed_name %></h2>
+    <img src="<%= image_url %>" alt="<%= breed_name %> image">
+  </div>
 <% end %>
